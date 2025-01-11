@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebruikersbeheer</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Gebruikersbeheer</h1>
+    </header>
+    <main>
+        <section id="user-list">
+            <h2>Alle Gebruikers</h2>
+            <ul id="users"></ul>
+        </section>
+        <section id="add-user">
+            <h2>Nieuwe Gebruiker Toevoegen</h2>
+            <form id="user-form">
+                <label for="name">Naam:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Wachtwoord:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Toevoegen</button>
+            </form>
+        </section>
+    </main>
+    <script src="./js/users.js"></script>
+</body>
+</html>
