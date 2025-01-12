@@ -12,6 +12,20 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const [rows] = await pool.query('SELECT * FROM news WHERE id = ?', [id]);
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Nieuwsbericht niet gevonden.' });
+        }
+        res.json(rows[0]);
+    } catch (error) {
+        res.status(500).json({ error: 'Kan nieuwsbericht niet ophalen.' });
+    }
+});
+
 router.post('/', async (req, res) => {
     const { title, content, image_url } = req.body;
 
@@ -30,6 +44,25 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { title, content, image_url } = req.body;
+
+    try {
+        const [result] = await pool.query(
+            'UPDATE news SET title = ?, content = ?, image_url = ? WHERE id = ?',
+            [title, content, image_url || null, id]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Nieuwsbericht niet gevonden.' });
+        }
+
+        res.status(200).json({ message: 'Nieuwsbericht bijgewerkt.' });
+    } catch (error) {
+        res.status(500).json({ error: 'Kan nieuwsbericht niet bijwerken.' });
+    }
+});
 
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;

@@ -1,9 +1,9 @@
 async function fetchNews() {
-    const response = await fetch('/news');
+    const response = await fetch('/news'); 
     const newsList = await response.json();
     const newsContainer = document.getElementById('news');
 
-    newsContainer.innerHTML = '';
+    newsContainer.innerHTML = ''; 
 
     newsList.forEach(news => {
         const li = document.createElement('li');
@@ -14,7 +14,15 @@ async function fetchNews() {
         deleteButton.style.marginLeft = '10px';
         deleteButton.addEventListener('click', () => deleteNews(news.id));
 
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Bewerken';
+        editButton.style.marginLeft = '10px';
+        editButton.addEventListener('click', () => {
+            window.location.href = `/edit-news.html?id=${news.id}`;
+        });
+
         li.appendChild(deleteButton);
+        li.appendChild(editButton);
         newsContainer.appendChild(li);
     });
 }
