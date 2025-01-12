@@ -28,4 +28,20 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [result] = await pool.query('DELETE FROM users WHERE id = ?', [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Gebruiker niet gevonden.' });
+    }
+
+    res.status(200).json({ message: 'Gebruiker verwijderd.' });
+  } catch (error) {
+    res.status(500).json({ error: 'Kan gebruiker niet verwijderen.' });
+  }
+});
+
 export default router;

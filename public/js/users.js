@@ -1,13 +1,21 @@
-
 async function fetchUsers() {
     const response = await fetch('/users');
     const users = await response.json();
     const userList = document.getElementById('users');
 
     userList.innerHTML = ''; 
+
     users.forEach(user => {
         const li = document.createElement('li');
+
         li.textContent = `${user.name} (${user.email})`;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Verwijderen';
+        deleteButton.style.marginLeft = '10px';
+        deleteButton.addEventListener('click', () => deleteUser(user.id));
+
+        li.appendChild(deleteButton);
         userList.appendChild(li);
     });
 }
@@ -19,7 +27,7 @@ async function addUser(event) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const response = await fetch('/users', {
+    await fetch('/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -27,17 +35,18 @@ async function addUser(event) {
         body: JSON.stringify({ name, email, password })
     });
 
-    if (response.ok) {
-        alert('Gebruiker toegevoegd!');
-        fetchUsers(); 
-    } else {
-        alert('Er is een fout opgetreden bij het toevoegen.');
-    }
-
+    fetchUsers(); 
     document.getElementById('user-form').reset(); 
 }
 
-document.getElementById('user-form').addEventListener('submit', addUser);
+async function deleteUser(id) {
+    await fetch(`/users/${id}`, {
+        method: 'DELETE'
+    });
 
+    fetchUsers(); 
+}
+
+document.getElementById('user-form').addEventListener('submit', addUser);
 
 fetchUsers();
