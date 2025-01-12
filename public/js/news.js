@@ -38,6 +38,14 @@ async function addNews(event) {
     document.getElementById('news-form').reset(); 
 }
 
+async function deleteNews(id) {
+    await fetch(`/news/${id}`, {
+        method: 'DELETE',
+    });
+
+    fetchNews(); 
+}
+
 document.getElementById('news-form').addEventListener('submit', addNews);
 
 fetchNews();
