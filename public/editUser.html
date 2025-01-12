@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebruiker Bewerken</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Gebruiker Bewerken</h1>
+    </header>
+    <main>
+        <section id="edit-user">
+            <form id="edit-user-form">
+                <input type="hidden" id="user-id">
+                <label for="name">Naam:</label>
+                <input type="text" id="name" required>
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" required>
+                <label for="password">Wachtwoord:</label>
+                <input type="password" id="password">
+                <button type="submit">Opslaan</button>
+            </form>
+        </section>
+    </main>
+    <script src="./js/edit-user.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@ async function fetchUsers() {
     const users = await response.json();
     const userList = document.getElementById('users');
 
-    userList.innerHTML = ''; 
+    userList.innerHTML = '';
 
     users.forEach(user => {
         const li = document.createElement('li');
@@ -15,10 +15,19 @@ async function fetchUsers() {
         deleteButton.style.marginLeft = '10px';
         deleteButton.addEventListener('click', () => deleteUser(user.id));
 
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Bewerken';
+        editButton.style.marginLeft = '10px';
+        editButton.addEventListener('click', () => {
+            window.location.href = `/editUser.html?id=${user.id}`;
+        });
+
         li.appendChild(deleteButton);
+        li.appendChild(editButton); 
         userList.appendChild(li);
     });
 }
+
 
 async function addUser(event) {
     event.preventDefault();
