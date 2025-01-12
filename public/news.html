@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nieuwsberichtenbeheer</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Nieuwsberichtenbeheer</h1>
+    </header>
+    <main>
+        <section id="news-list">
+            <h2>Alle Nieuwsberichten</h2>
+            <ul id="news"></ul>
+        </section>
+        <section id="add-news">
+            <h2>Nieuw Nieuwsbericht Toevoegen</h2>
+            <form id="news-form">
+                <label for="title">Titel:</label>
+                <input type="text" id="title" required>
+                <label for="content">Inhoud:</label>
+                <textarea id="content" required></textarea>
+                <label for="image_url">Afbeeldings-URL (optioneel):</label>
+                <input type="url" id="image_url">
+                <button type="submit">Toevoegen</button>
+            </form>
+        </section>
+    </main>
+    <script src="./js/news.js"></script>
+</body>
+</html>

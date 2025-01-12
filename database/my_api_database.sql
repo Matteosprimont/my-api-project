@@ -1,4 +1,4 @@
-CREATE TABLE users (
+  CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,       
   name VARCHAR(255) NOT NULL,               
   email VARCHAR(255) UNIQUE NOT NULL,       
@@ -8,6 +8,7 @@ CREATE TABLE users (
 CREATE TABLE news (
   id INT AUTO_INCREMENT PRIMARY KEY,      
   title VARCHAR(255) NOT NULL,            
-  content TEXT NOT NULL,                  
+  content TEXT NOT NULL,     
+  image_url VARCHAR(255),             
   published_at DATETIME DEFAULT CURRENT_TIMESTAMP 
 );
