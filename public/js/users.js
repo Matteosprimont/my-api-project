@@ -56,6 +56,34 @@ async function deleteUser(id) {
     fetchUsers(); 
 }
 
-document.getElementById('user-form').addEventListener('submit', addUser);
+document.getElementById('user-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    if (!name || !email || !password) {
+        alert('Alle velden zijn verplicht.');
+        return;
+    }
+    if (/\d/.test(name)) {
+        alert('Naam mag geen cijfers bevatten.');
+        return;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+        alert('Voer een geldig e-mailadres in.');
+        return;
+    }
+
+    if (password.length < 8) {
+        alert('Wachtwoord moet minstens 8 tekens lang zijn.');
+        return;
+    }
+
+    addUser(event);
+});
+
 
 fetchUsers();

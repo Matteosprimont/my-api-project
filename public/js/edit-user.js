@@ -28,6 +28,35 @@ async function editUser(event) {
     window.location.href = '/users.html';
 }
 
-document.getElementById('edit-user-form').addEventListener('submit', editUser);
+document.getElementById('edit-user-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    if (!name || !email) {
+        alert('Naam en e-mailadres zijn verplicht.');
+        return;
+    }
+
+    if (/\d/.test(name)) {
+        alert('Naam mag geen cijfers bevatten.');
+        return;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+        alert('Voer een geldig e-mailadres in.');
+        return;
+    }
+
+    if (password && password.length < 8) {
+        alert('Wachtwoord moet minstens 8 tekens lang zijn.');
+        return;
+    }
+
+    editUser(event);
+});
+
 
 fetchUser();

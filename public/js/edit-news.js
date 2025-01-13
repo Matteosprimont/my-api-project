@@ -29,6 +29,35 @@ async function editNews(event) {
     window.location.href = '/news.html';
 }
 
-document.getElementById('edit-news-form').addEventListener('submit', editNews);
+document.getElementById('edit-news-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const title = document.getElementById('title').value.trim();
+    const content = document.getElementById('content').value.trim();
+    const image_url = document.getElementById('image_url').value.trim();
+
+    if (!title || !content) {
+        alert('Titel en inhoud zijn verplicht.');
+        return;
+    }
+
+    if (title.length < 5) {
+        alert('Titel moet minstens 5 karakters bevatten.');
+        return;
+    }
+
+    if (content.length < 10) {
+        alert('Inhoud moet minstens 10 karakters bevatten.');
+        return;
+    }
+
+    if (image_url && !/^(https?:\/\/[^\s]+)$/.test(image_url)) {
+        alert('Afbeeldings-URL is ongeldig.');
+        return;
+    }
+
+    editNews(event);
+});
+
 
 fetchNews();
