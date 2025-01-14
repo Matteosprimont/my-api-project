@@ -17,12 +17,14 @@ function validateUserData({ name, email, password }) {
 }
 
 router.get('/', async (req, res) => {
+  const limit = parseInt(req.query.limit) || 10;
+  const offset = parseInt(req.query.offset) || 0; 
   try {
-    const [rows] = await pool.query('SELECT * FROM users');
+    const [rows] = await pool.query('SELECT * FROM users LIMIT ? OFFSET ?', [limit, offset]);
     res.json(rows);
-      } catch (error) {
-        res.status(500).json({ error: 'Kan gebruikers niet ophalen.' });
-      }
+  } catch (error) {
+      res.status(500).json({ error: 'Kan gebruikers niet ophalen.' });
+  }
 });
 
 router.get('/:id', async (req, res) => {
@@ -34,9 +36,9 @@ router.get('/:id', async (req, res) => {
           return res.status(404).json({ error: 'Gebruiker niet gevonden.' });
       }
       res.json(rows[0]);
-        } catch (error) {
-            res.status(500).json({ error: 'Kan gebruiker niet ophalen.' });
-        }
+  } catch (error) {
+      res.status(500).json({ error: 'Kan gebruiker niet ophalen.' });
+  }
 });
 
 
@@ -55,7 +57,7 @@ router.post('/', async (req, res) => {
       res.status(201).json({ id: result.insertId, name, email });
         } catch (err) {
             res.status(500).json({ error: 'Kan gebruiker niet toevoegen.' });
-        }
+       }
 });
 
 router.delete('/:id', async (req, res) => {

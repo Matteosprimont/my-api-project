@@ -17,12 +17,15 @@ function validateNewsData({ title, content, image_url }) {
 }
 
 router.get('/', async (req, res) => {
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = parseInt(req.query.offset) || 0; 
+
     try {
-        const [rows] = await pool.query('SELECT * FROM news');
+        const [rows] = await pool.query('SELECT * FROM news LIMIT ? OFFSET ?', [limit, offset]);
         res.json(rows);
-            } catch (error) {
-                res.status(500).json({ error: 'Kan nieuwsberichten niet ophalen.' });
-            }
+    } catch (error) {
+        res.status(500).json({ error: 'Kan nieuwsberichten niet ophalen.' });
+    }
 });
 
 router.get('/:id', async (req, res) => {

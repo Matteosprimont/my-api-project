@@ -1,5 +1,8 @@
+let limit = 5; 
+let offset = 0; 
+
 async function fetchNews() {
-    const response = await fetch('/news'); 
+    const response = await fetch(`/news?limit=${limit}&offset=${offset}`);
     const newsList = await response.json();
     const newsContainer = document.getElementById('news');
 
@@ -25,6 +28,10 @@ async function fetchNews() {
         li.appendChild(editButton);
         newsContainer.appendChild(li);
     });
+
+    document.getElementById('previous').disabled = offset === 0;
+    document.getElementById('next').disabled = newsList.length < limit;
+
 }
 
 async function addNews(event) {
@@ -53,6 +60,18 @@ async function deleteNews(id) {
 
     fetchNews(); 
 }
+
+document.getElementById('next').addEventListener('click', () => {
+    offset += limit;
+    fetchNews();
+});
+
+document.getElementById('previous').addEventListener('click', () => {
+    if (offset > 0) {
+        offset -= limit;
+        fetchNews();
+    }
+});
 
 document.getElementById('news-form').addEventListener('submit', function (event) {
     event.preventDefault();
