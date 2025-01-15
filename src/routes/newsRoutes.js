@@ -28,6 +28,21 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/search', async (req, res) => {
+    const { title } = req.query;
+
+    if (!title) {
+        return res.status(400).json({ error: 'Geef een zoekwoord op voor de titel.' });
+    }
+
+    try {
+        const [rows] = await pool.query('SELECT * FROM news WHERE title LIKE ?', [`%${title}%`]);
+        res.json(rows);
+    } catch (error) {
+        res.status(500).json({ error: 'Kan nieuwsberichten niet zoeken.' });
+    }
+});
+
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
@@ -41,6 +56,7 @@ router.get('/:id', async (req, res) => {
                 res.status(500).json({ error: 'Kan nieuwsbericht niet ophalen.' });
             }
 });
+
 
 router.post('/', async (req, res) => {
     const { title, content, image_url } = req.body;

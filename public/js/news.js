@@ -1,12 +1,44 @@
-let limit = 5; 
-let offset = 0; 
+let limit = 5;
+let offset = 0;
 
 async function fetchNews() {
     const response = await fetch(`/news?limit=${limit}&offset=${offset}`);
     const newsList = await response.json();
-    const newsContainer = document.getElementById('news');
+    renderNewsList(newsList);
+}
 
-    newsContainer.innerHTML = ''; 
+async function searchNews(event) {
+    event.preventDefault();
+
+    const title = document.getElementById('search-title').value.trim();
+    if (!title) {
+        fetchNews();
+        return;
+    }
+
+    try {
+        const response = await fetch(`/news/search?title=${encodeURIComponent(title)}`);
+        if (!response.ok) {
+            throw new Error('Fout bij het ophalen van resultaten.');
+        }
+
+        const newsList = await response.json();
+        renderNewsList(newsList);
+    } catch (error) {
+        console.error('Fout bij zoeken:', error);
+        const newsContainer = document.getElementById('news');
+        newsContainer.innerHTML = '<li>Er is een fout opgetreden bij het zoeken.</li>';
+    }
+}
+
+function renderNewsList(newsList) {
+    const newsContainer = document.getElementById('news');
+    newsContainer.innerHTML = '';
+
+    if (newsList.length === 0) {
+        newsContainer.innerHTML = '<li>Geen resultaten gevonden.</li>';
+        return;
+    }
 
     newsList.forEach(news => {
         const li = document.createElement('li');
@@ -31,49 +63,9 @@ async function fetchNews() {
 
     document.getElementById('previous').disabled = offset === 0;
     document.getElementById('next').disabled = newsList.length < limit;
-
 }
 
 async function addNews(event) {
-    event.preventDefault();
-
-    const title = document.getElementById('title').value;
-    const content = document.getElementById('content').value;
-    const image_url = document.getElementById('image_url').value;
-
-    await fetch('/news', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title, content, image_url }),
-    });
-
-    fetchNews(); 
-    document.getElementById('news-form').reset(); 
-}
-
-async function deleteNews(id) {
-    await fetch(`/news/${id}`, {
-        method: 'DELETE',
-    });
-
-    fetchNews(); 
-}
-
-document.getElementById('next').addEventListener('click', () => {
-    offset += limit;
-    fetchNews();
-});
-
-document.getElementById('previous').addEventListener('click', () => {
-    if (offset > 0) {
-        offset -= limit;
-        fetchNews();
-    }
-});
-
-document.getElementById('news-form').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const title = document.getElementById('title').value.trim();
@@ -100,8 +92,39 @@ document.getElementById('news-form').addEventListener('submit', function (event)
         return;
     }
 
-    addNews(event);
+    await fetch('/news', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, content, image_url }),
+    });
+
+    fetchNews(); 
+    document.getElementById('news-form').reset();
+}
+
+async function deleteNews(id) {
+    await fetch(`/news/${id}`, {
+        method: 'DELETE',
+    });
+
+    fetchNews(); 
+}
+
+document.getElementById('next').addEventListener('click', () => {
+    offset += limit;
+    fetchNews();
 });
 
+document.getElementById('previous').addEventListener('click', () => {
+    if (offset > 0) {
+        offset -= limit;
+        fetchNews();
+    }
+});
+
+document.getElementById('news-form').addEventListener('submit', addNews);
+document.getElementById('search-news-form').addEventListener('submit', searchNews);
 
 fetchNews();

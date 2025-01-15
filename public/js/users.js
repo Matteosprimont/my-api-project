@@ -85,5 +85,20 @@ document.getElementById('user-form').addEventListener('submit', function (event)
     addUser(event);
 });
 
+document.getElementById('search-user-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
 
+    const name = document.getElementById('search-name').value.trim();
+    const response = await fetch(`/users/search?name=${name}`);
+    const userList = await response.json();
+    const usersContainer = document.getElementById('users');
+
+    usersContainer.innerHTML = ''; 
+
+    userList.forEach(user => {
+        const li = document.createElement('li');
+        li.textContent = `${user.name} (${user.email})`;
+        usersContainer.appendChild(li);
+    });
+});
 fetchUsers();

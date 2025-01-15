@@ -3,31 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gebruikersbeheer</title>
+    <title>Nieuwsberichtenbeheer</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <header>
-        <h1>Gebruikersbeheer</h1>
+        <h1>Nieuwsberichtenbeheer</h1>
     </header>
     <main>
-        <section id="user-list">
-            <h2>Alle Gebruikers</h2>
-            <ul id="users"></ul>
+        <section id="search-news">
+            <h2>Zoek Nieuwsberichten</h2>
+            <form id="search-news-form">
+                <input type="text" id="search-title" placeholder="Zoek op titel">
+                <button type="submit">Zoeken</button>
+            </form>
         </section>
-        <section id="add-user">
-            <h2>Nieuwe Gebruiker Toevoegen</h2>
-            <form id="user-form">
-                <label for="name">Naam:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="password">Wachtwoord:</label>
-                <input type="password" id="password" name="password" required>
+        <section id="news-list">
+            <h2>Alle Nieuwsberichten</h2>
+            <ul id="news"></ul>
+            <div id="pagination-controls">
+                <button id="previous" disabled>Vorige</button>
+                <button id="next">Volgende</button>
+            </div>
+        </section>
+        <section id="add-news">
+            <h2>Nieuw Nieuwsbericht Toevoegen</h2>
+            <form id="news-form">
+                <label for="title">Titel:</label>
+                <input type="text" id="title" required>
+                <label for="content">Inhoud:</label>
+                <textarea id="content" required></textarea>
+                <label for="image_url">Afbeeldings-URL (optioneel):</label>
+                <input type="url" id="image_url">
                 <button type="submit">Toevoegen</button>
             </form>
         </section>
     </main>
-    <script src="./js/users.js"></script>
+    <script src="./js/news.js"></script>
 </body>
 </html>

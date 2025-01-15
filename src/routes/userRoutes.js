@@ -40,7 +40,20 @@ router.get('/:id', async (req, res) => {
       res.status(500).json({ error: 'Kan gebruiker niet ophalen.' });
   }
 });
+router.get('/search', async (req, res) => {
+  const { name } = req.query;
 
+  if (!name) {
+      return res.status(400).json({ error: 'Geef een zoekwoord op voor de naam.' });
+  }
+
+  try {
+      const [rows] = await pool.query('SELECT * FROM users WHERE name LIKE ?', [`%${name}%`]);
+      res.json(rows);
+  } catch (error) {
+      res.status(500).json({ error: 'Kan gebruikers niet zoeken.' });
+  }
+});
 
 router.post('/', async (req, res) => {
   const { name, email, password } = req.body;
