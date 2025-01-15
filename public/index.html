@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentatie</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1>API Documentatie</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Gebruikers Endpoints</h2>
+            <ul>
+                <li><strong>GET /users</strong> - Haalt een lijst op van alle gebruikers.</li>
+                <li><strong>GET /users/:id</strong> - Haalt details op van een specifieke gebruiker.</li>
+                <li><strong>POST /users</strong> - Voegt een nieuwe gebruiker toe.</li>
+                <li><strong>PUT /users/:id</strong> - Wijzigt een bestaande gebruiker.</li>
+                <li><strong>DELETE /users/:id</strong> - Verwijdert een bestaande gebruiker.</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Nieuwsberichten Endpoints</h2>
+            <ul>
+                <li><strong>GET /news</strong> - Haalt een lijst op van alle nieuwsberichten.</li>
+                <li><strong>GET /news/:id</strong> - Haalt details op van een specifiek nieuwsbericht.</li>
+                <li><strong>GET /news/search</strong> - Zoekt naar nieuwsberichten op titel.</li>
+                <li><strong>POST /news</strong> - Voegt een nieuw nieuwsbericht toe.</li>
+                <li><strong>PUT /news/:id</strong> - Wijzigt een bestaand nieuwsbericht.</li>
+                <li><strong>DELETE /news/:id</strong> - Verwijdert een bestaand nieuwsbericht.</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Validatie</h2>
+            <h3>Gebruikers</h3>
+            <ul>
+                <li>Naam mag geen cijfers bevatten en moet minimaal 3 tekens bevatten.</li>
+                <li>Email moet een geldig e-mailadres zijn.</li>
+                <li>Wachtwoord moet minimaal 8 tekens bevatten.</li>
+                <li>Numerieke velden moeten een geldig nummer zijn.</li>
+            </ul>
+            <h3>Nieuwsberichten</h3>
+            <ul>
+                <li>Titel moet minimaal 5 tekens bevatten.</li>
+                <li>Inhoud moet minimaal 10 tekens bevatten.</li>
+                <li>Afbeeldings-URL moet een geldig URL-formaat hebben (optioneel).</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
