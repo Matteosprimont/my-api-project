@@ -28,7 +28,7 @@ Dit project is een data-driven API gemaakt met Node.js, Express, en MySQL. Het b
 
 1. **Clone de repository**
 ```bash
-git clone <repository-URL>
+git clone https://github.com/Matteosprimont/my-api-project.git
 ```
 2. **Navigeer naar de projectmap**:
 ```bash
@@ -111,3 +111,15 @@ Beheer nieuwsberichten via de frontend: [http://localhost:3000/news.html](http:/
   - Gebruik `limit` en `offset` in de URL-query voor zowel gebruikers als nieuwsberichten.
     - Voorbeeld: `/users?limit=5&offset=10`
     - Voorbeeld: `/news?limit=10&offset=20`
+
+---
+
+## bronvermeldingen:
+- [Node.js](https://nodejs.org/)
+- [MySQL-documentatie](https://dev.mysql.com/doc/)
+- EHB Canvas: [Backend Web - Node.js](https://canvas.ehb.be/courses/40595)
+
+---
+
+## Licentie
+Dit project is beschikbaar onder de MIT-licentie.
